@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "600725201071",
+    "project_id": "ocdxsunnah-dfad2",
+    "storage_bucket": "ocdxsunnah-dfad2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:600725201071:android:9af24bcbf41682432df45a",
+        "android_client_info": {
+          "package_name": "com.ocdxsunnah.oxs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "600725201071-250hhekofk7v0f8mj7bi2tt21ajm0esp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ocdxsunnah.oxs",
+            "certificate_hash": "5d224638e1a81e7ef9d572a058613c34691cc902"
+          }
+        },
+        {
+          "client_id": "600725201071-2bok1ihottboar2pvgar7neb5urfkkii.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2SVkk4HnlExaxDnOgmyUZHDOHlT1xLjM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "600725201071-2bok1ihottboar2pvgar7neb5urfkkii.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
