@@ -1,4 +1,4 @@
-package com.ocdxsunnah.oxs;
+package com.ocdxsunnah.oxs.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,27 +7,28 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.ocdxsunnah.oxs.Views.StepActivity;
+import com.ocdxsunnah.oxs.MainActivity;
+import com.ocdxsunnah.oxs.R;
 
-public class MainActivity extends AppCompatActivity {
+public class StepActivity extends AppCompatActivity {
 
-    Button btMulai;
+    Button btNext1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_step);
 
-        btMulai = findViewById(R.id.btYumulai);
+        btNext1 = findViewById(R.id.btNext1);
 
-        btMulai.setOnClickListener(new View.OnClickListener() {
+        btNext1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next = new Intent(MainActivity.this, StepActivity.class);
+                Intent next = new Intent(StepActivity.this, LoginActivity.class);
                 startActivity(next);
                 finish();
             }
         });
-    }
 
+    }
 }

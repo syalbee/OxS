@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="hijauUtama">#003116</color>
+    <color name="hijauKedua">#136242</color>
+    <color name="oren">#FF8139</color>
+    <color name="bgColor">#F7FAF1</color>
 </resources>
