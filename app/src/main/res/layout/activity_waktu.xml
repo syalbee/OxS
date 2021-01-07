@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Views.WaktuActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pilih waktu diet"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+    <RadioGroup
+        android:id="@+id/list_waktu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/patJam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="4 Jam" />
+
+        <RadioButton
+            android:id="@+id/namJam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="6 Jam" />
+
+        <RadioButton
+            android:id="@+id/panJam"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8 Jam" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btNextc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lanjut" />
+</LinearLayout>

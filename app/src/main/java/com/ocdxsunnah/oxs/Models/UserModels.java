@@ -6,6 +6,7 @@ public class UserModels {
     public String metode;
     public String nama;
     public String uID;
+    public String jeKel;
     public Double beratBadan;
     public Double tinggiBadan;
     public int lama;
@@ -14,11 +15,12 @@ public class UserModels {
 
     }
 
-    public UserModels(String beratIdeal, String metode, String nama, String uID, Double beratBadan, Double tinggiBadan, int lama) {
+    public UserModels(String beratIdeal, String metode, String nama, String uID, String jeKel, Double beratBadan, Double tinggiBadan, int lama) {
         this.beratIdeal = beratIdeal;
         this.metode = metode;
         this.nama = nama;
         this.uID = uID;
+        this.jeKel = jeKel;
         this.beratBadan = beratBadan;
         this.tinggiBadan = tinggiBadan;
         this.lama = lama;
@@ -54,6 +56,14 @@ public class UserModels {
 
     public void setuID(String uID) {
         this.uID = uID;
+    }
+
+    public String getJeKel() {
+        return jeKel;
+    }
+
+    public void setJeKel(String jeKel) {
+        this.jeKel = jeKel;
     }
 
     public Double getBeratBadan() {

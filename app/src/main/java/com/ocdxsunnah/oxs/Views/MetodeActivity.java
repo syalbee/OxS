@@ -51,6 +51,7 @@ public class MetodeActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         int i = v.getId();
         String bIdeal = "0";
+        String jekel = "-";
         Double bBadan = 0.0;
         Double tBadan = 0.0;
         int lama = 0;
@@ -61,7 +62,7 @@ public class MetodeActivity extends AppCompatActivity implements View.OnClickLis
             } else {
                 UserModels um = new UserModels();
 
-                db.user.child(uID).setValue(new UserModels(bIdeal, metode, nama, uID,bBadan,tBadan,lama))
+                db.user.child(uID).setValue(new UserModels(bIdeal, metode, nama, uID,jekel,bBadan,tBadan,lama))
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
