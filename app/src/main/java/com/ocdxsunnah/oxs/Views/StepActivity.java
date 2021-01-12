@@ -6,13 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.ocdxsunnah.oxs.MainActivity;
 import com.ocdxsunnah.oxs.R;
 
 public class StepActivity extends AppCompatActivity {
 
-    Button btNext1;
+    ImageButton btNext1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

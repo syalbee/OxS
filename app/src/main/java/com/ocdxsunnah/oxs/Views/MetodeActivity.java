@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,7 +19,7 @@ import com.ocdxsunnah.oxs.R;
 
 public class MetodeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btNext2, btKolab, btOcd;
+    ImageButton btNext2, btKolab, btOcd;
     DatabaseInit db = new DatabaseInit();
 
     private String uID;
