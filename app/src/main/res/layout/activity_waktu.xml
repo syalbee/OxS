@@ -1,49 +1,153 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:background="@color/bgColor"
     tools:context=".Views.WaktuActivity">
 
+    <ImageButton
+        android:id="@+id/btBack"
+        android:layout_width="69dp"
+        android:layout_height="76dp"
+        android:background="@drawable/transparan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_back35" />
+
+
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pilih waktu diet"
-        android:textColor="#000000"
-        android:textSize="15sp" />
+        android:text="Pilih waktu"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.127" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="268dp"
+        android:layout_height="66dp"
+        android:text="Silahkan memilih waktu makan,
+        makan dimulai dari jam 12.00 siang ditambah selang waktu "
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.218" />
 
     <RadioGroup
         android:id="@+id/list_waktu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:orientation="vertical">
+        android:layout_width="99dp"
+        android:layout_height="149dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.227"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.408">
 
         <RadioButton
             android:id="@+id/patJam"
-            android:layout_width="match_parent"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
-            android:text="4 Jam" />
+            android:text=" 4 Jam"
+            android:textColor="@color/hijauUtama"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/namJam"
-            android:layout_width="match_parent"
+            android:layout_width="99dp"
             android:layout_height="wrap_content"
-            android:text="6 Jam" />
+            android:text=" 6 Jam"
+            android:textColor="@color/hijauUtama"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <RadioButton
             android:id="@+id/panJam"
-            android:layout_width="match_parent"
+            android:layout_width="102dp"
             android:layout_height="wrap_content"
-            android:text="8 Jam" />
+            android:text=" 8 Jam"
+            android:textColor="@color/hijauUtama"
+            android:textSize="18sp"
+            android:textStyle="bold" />
     </RadioGroup>
 
-    <Button
+    <ImageButton
         android:id="@+id/btNextc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lanjut" />
-</LinearLayout>
+        android:background="@drawable/circle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.898"
+        app:srcCompat="@drawable/ic_next"/>
+
+    <TextView
+        android:id="@+id/jam4"
+        android:layout_width="99dp"
+        android:layout_height="22dp"
+        android:text="[ 12.00 - 16.00 ]"
+        android:textAlignment="center"
+        android:textColor="@color/hijauKedua"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.356" />
+
+    <TextView
+        android:id="@+id/jam6"
+        android:layout_width="99dp"
+        android:layout_height="22dp"
+        android:text="[ 12.00 - 18.00 ]"
+        android:textAlignment="center"
+        android:textColor="@color/hijauKedua"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.423" />
+
+    <TextView
+        android:id="@+id/jam8"
+        android:layout_width="99dp"
+        android:layout_height="22dp"
+        android:text="[ 12.00 - 20.00 ]"
+        android:textAlignment="center"
+        android:textColor="@color/hijauKedua"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.769"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.486" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

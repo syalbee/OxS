@@ -2,9 +2,11 @@ package com.ocdxsunnah.oxs.Views;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -15,7 +17,7 @@ import com.ocdxsunnah.oxs.R;
 
 public class WaktuActivity extends AppCompatActivity {
 
-    Button btNext;
+    ImageButton btNext, btBack;
     RadioGroup listWaktu;
     RadioButton btPat, btNam, btPan;
     private int jam = 0;
@@ -32,6 +34,8 @@ public class WaktuActivity extends AppCompatActivity {
         btPat = findViewById(R.id.patJam);
         btNam = findViewById(R.id.namJam);
         btPan = findViewById(R.id.panJam);
+        btBack = findViewById(R.id.btBack);
+
 
         FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
         uID = firebaseUser.getUid();
@@ -43,8 +47,20 @@ public class WaktuActivity extends AppCompatActivity {
                 if(jam == 0){
                     Toast.makeText(WaktuActivity.this, "pilih salah satu", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(WaktuActivity.this, "lanjut", Toast.LENGTH_SHORT).show();
+                    db.user.child(uID).child("status").setValue(true);
+                    Intent next = new Intent(WaktuActivity.this, MenuActivity.class);
+                    startActivity(next);
+                    finish();
                 }
+            }
+        });
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(WaktuActivity.this, BiodataActivity.class);
+                startActivity(back);
+                finish();
             }
         });
     }

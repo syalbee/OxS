@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OxS">
-        <activity android:name=".Views.MenuActivity"></activity>
+        <activity android:name=".Views.AwalActivity"></activity>
+        <activity android:name=".Views.MenuActivity" />
         <activity android:name=".Views.SettingActivity" />
         <activity android:name=".Views.WaktuActivity" />
         <activity android:name=".Views.BiodataActivity" />

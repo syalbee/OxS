@@ -7,6 +7,20 @@
     android:background="@color/bgColor"
     tools:context=".Views.BiodataActivity">
 
+    <ImageButton
+        android:id="@+id/btBack"
+        android:layout_width="69dp"
+        android:layout_height="76dp"
+        android:background="@drawable/transparan"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_back35" />
+
+
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"

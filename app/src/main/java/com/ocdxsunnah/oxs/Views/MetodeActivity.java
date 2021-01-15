@@ -19,7 +19,7 @@ import com.ocdxsunnah.oxs.R;
 
 public class MetodeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton btNext2, btKolab, btOcd;
+    ImageButton btNext2, btKolab, btOcd, btBack;
     DatabaseInit db = new DatabaseInit();
 
     private String uID;
@@ -34,6 +34,7 @@ public class MetodeActivity extends AppCompatActivity implements View.OnClickLis
         btNext2 = findViewById(R.id.btNext2);
         btOcd = findViewById(R.id.btOcd);
         btKolab = findViewById(R.id.btKolab);
+        btBack = findViewById(R.id.btBack);
 
         FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
 
@@ -45,6 +46,15 @@ public class MetodeActivity extends AppCompatActivity implements View.OnClickLis
         btNext2.setOnClickListener(this);
         btKolab.setOnClickListener(this);
         btOcd.setOnClickListener(this);
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(MetodeActivity.this, LoginActivity.class);
+                startActivity(back);
+                finish();
+            }
+        });
 
     }
 
