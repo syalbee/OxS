@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -69,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser != null) {
 //            progressBar.setIndeterminate(true);
+            ProgressDialog.show(LoginActivity.this, "Conecting", "Please wait");
             db.user.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -87,13 +89,12 @@ public class LoginActivity extends AppCompatActivity {
             });
 
         } else {
+
             int yus = getIntent().getIntExtra("statuse",0);
-            if(yus == 1){
-                Toast.makeText(this, "login", Toast.LENGTH_SHORT).show();
-            }
-            else {
+            if(yus != 1){
                 startActivity(new Intent(LoginActivity.this, AwalActivity.class));
             }
+
         }
 
         btBack.setOnClickListener(new View.OnClickListener() {
