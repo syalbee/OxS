@@ -73,15 +73,7 @@ public class SettingActivity extends AppCompatActivity {
         am = (Switch) findViewById(R.id.alarmMakan);
         as = (Switch) findViewById(R.id.alarmSahur);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        nf.setChecked(sharedPreferences.getBoolean("value", false));
-        SharedPreferences sharedPreferences1 = getSharedPreferences("save1", MODE_PRIVATE);
-        am.setChecked(sharedPreferences1.getBoolean("value", false));
-        am.setEnabled(sharedPreferences1.getBoolean("value", false));
-        SharedPreferences sharedPreferences2 = getSharedPreferences("save2", MODE_PRIVATE);
-        as.setChecked(sharedPreferences2.getBoolean("value", false));
-        as.setEnabled(sharedPreferences2.getBoolean("value", false));
-
+        saveState();
         getDataFromApi();
 
         final int hour = 12;
@@ -104,6 +96,12 @@ public class SettingActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = getSharedPreferences("save", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
                     editor.apply();
+                    SharedPreferences.Editor editor1 = getSharedPreferences("save3", MODE_PRIVATE).edit();
+                    editor1.putBoolean("value", true);
+                    editor1.apply();
+                    SharedPreferences.Editor editor2 = getSharedPreferences("save4", MODE_PRIVATE).edit();
+                    editor2.putBoolean("value", true);
+                    editor2.apply();
                     nf.setChecked(true);
                     notifOn();
                     if (mode.equalsIgnoreCase("ocd")) {
@@ -131,9 +129,15 @@ public class SettingActivity extends AppCompatActivity {
                     editor1.putBoolean("value", false);
                     SharedPreferences.Editor editor2 = getSharedPreferences("save2", MODE_PRIVATE).edit();
                     editor2.putBoolean("value", false);
+                    SharedPreferences.Editor editor3 = getSharedPreferences("save3", MODE_PRIVATE).edit();
+                    editor3.putBoolean("value", false);
+                    SharedPreferences.Editor editor4 = getSharedPreferences("save4", MODE_PRIVATE).edit();
+                    editor4.putBoolean("value", false);
                     editor.apply();
                     editor1.apply();
                     editor2.apply();
+                    editor3.apply();
+                    editor4.apply();
                     nf.setChecked(false);
                 }
             }
@@ -422,5 +426,21 @@ public class SettingActivity extends AppCompatActivity {
         stopService(new Intent(this, AlarmAwalService.class));
         stopService(new Intent(this, AlarmSahurService.class));
         stopService(new Intent(this, AlarmAkhirService.class));
+    }
+
+    private void saveState(){
+        SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
+        nf.setChecked(sharedPreferences.getBoolean("value", false));
+        SharedPreferences sharedPreferences1 = getSharedPreferences("save1", MODE_PRIVATE);
+        am.setChecked(sharedPreferences1.getBoolean("value", false));
+        am.setEnabled(sharedPreferences1.getBoolean("value", false));
+        SharedPreferences sharedPreferences2 = getSharedPreferences("save2", MODE_PRIVATE);
+        as.setChecked(sharedPreferences2.getBoolean("value", false));
+        as.setEnabled(sharedPreferences2.getBoolean("value", false));
+
+        SharedPreferences sharedPreferences3 = getSharedPreferences("save3", MODE_PRIVATE);
+        am.setEnabled(sharedPreferences3.getBoolean("value", false));
+        SharedPreferences sharedPreferences4 = getSharedPreferences("save4", MODE_PRIVATE);
+        as.setEnabled(sharedPreferences4.getBoolean("value", false));
     }
 }
