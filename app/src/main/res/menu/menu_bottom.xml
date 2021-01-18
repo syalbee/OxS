@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navUpdate"
+        android:icon="@drawable/ic_update64"
+        android:title="UPDATE"/>
+
+    <item
+        android:id="@+id/navHome"
+        android:title="HOME" />
+
+    <item
+        android:id="@+id/navRekomen"
+        android:icon="@drawable/ic_baseline_format_list_bulleted_6"
+        android:title="REKOMENDASI" />
+</menu>
