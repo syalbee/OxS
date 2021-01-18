@@ -16,7 +16,7 @@ public class ImsakModels {
 
     @Override
     public String toString() {
-        return "MainModel{" +
+        return "ImsakModels{" +
                 "results=" + results +
                 '}';
     }
