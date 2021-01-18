@@ -20,6 +20,7 @@
             android:background="@android:color/darker_gray"/>
 
         <Switch
+            android:id="@+id/notif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nyalakan Notifikasi" />
@@ -34,6 +35,7 @@
             android:background="@android:color/darker_gray" />
 
         <Switch
+            android:id="@+id/alarmMakan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nyalakan Alarm Makan" />
@@ -44,6 +46,7 @@
             android:textSize="11dp"/>
 
         <Switch
+            android:id="@+id/alarmSahur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nyalakan Alarm Sahur" />
