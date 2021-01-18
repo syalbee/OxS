@@ -6,14 +6,14 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
-import com.ocdxsunnah.oxs.Notification.NotificationHelper;
+import com.ocdxsunnah.oxs.Notification.NotifAlarmAwal;
 
 public class AlarmAwalReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification1();
-        notificationHelper.getManager().notify(3, nb.build());
+        NotifAlarmAwal notif = new NotifAlarmAwal(context);
+        NotificationCompat.Builder nb = notif.getChannelNotification();
+        notif.getManager().notify(0, nb.build());
     }
 }

@@ -6,15 +6,15 @@ import android.content.Intent;
 
 import androidx.core.app.NotificationCompat;
 
-import com.ocdxsunnah.oxs.Notification.NotificationHelper;
+import com.ocdxsunnah.oxs.Notification.NotifAkhir;
 
 public class NotifAkhirReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        NotificationHelper notificationHelper = new NotificationHelper(context);
-        NotificationCompat.Builder nb = notificationHelper.getChannelNotification3();
-        notificationHelper.getManager().notify(2, nb.build());
+        NotifAkhir notif = new NotifAkhir(context);
+        NotificationCompat.Builder nb = notif.getChannelNotification();
+        notif.getManager().notify(0, nb.build());
 
     }
 }

@@ -41,6 +41,7 @@ public class SettingActivity extends AppCompatActivity {
     int jamSahur, menitSahur;
     String mode;
 
+
     private void getDataFromApi() {
         ApiService.endpoint().getData()
                 .enqueue(new Callback<ImsakModels>() {
@@ -66,24 +67,27 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_main);
+
         nf = (Switch) findViewById(R.id.notif);
         am = (Switch) findViewById(R.id.alarmMakan);
         as = (Switch) findViewById(R.id.alarmSahur);
 
         SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
-        nf.setChecked(sharedPreferences.getBoolean("value", true));
+        nf.setChecked(sharedPreferences.getBoolean("value", false));
         SharedPreferences sharedPreferences1 = getSharedPreferences("save1", MODE_PRIVATE);
-        am.setChecked(sharedPreferences1.getBoolean("value", true));
+        am.setChecked(sharedPreferences1.getBoolean("value", false));
+        am.setEnabled(sharedPreferences1.getBoolean("value", false));
         SharedPreferences sharedPreferences2 = getSharedPreferences("save2", MODE_PRIVATE);
-        as.setChecked(sharedPreferences2.getBoolean("value", true));
+        as.setChecked(sharedPreferences2.getBoolean("value", false));
+        as.setEnabled(sharedPreferences2.getBoolean("value", false));
 
         getDataFromApi();
 
-        final int hour = 1;
+        final int hour = 12;
 
         //dari firebase
-        final int endhour = 2;
+        final int endhour = 16;
         mode = "ocd";
 
         stopService();
@@ -179,15 +183,14 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (as.isChecked()) {
                     cancelAlarm(hour);
-//                    if (waktu.equalsIgnoreCase("sun")
-//                            || waktu.equalsIgnoreCase("sen")
-//                            || waktu.equalsIgnoreCase("thu")
-//                            || waktu.equalsIgnoreCase("kam")) {
-//                        startSahur(jamSahur, menitSahur);
-//                        startNotifSahur(jamSahur, menitSahur);
-//                    }
-                    startSahur(jamSahur, 3);
-                    startNotifSahur(jamSahur, 3);
+                    if (waktu.equalsIgnoreCase("sun")
+                            || waktu.equalsIgnoreCase("sen")
+                            || waktu.equalsIgnoreCase("thu")
+                            || waktu.equalsIgnoreCase("kam")) {
+                        startSahur(jamSahur, menitSahur);
+                        startNotifSahur(jamSahur, menitSahur);
+                    }
+
                     SharedPreferences.Editor editor = getSharedPreferences("save2", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
                     editor.apply();
@@ -207,11 +210,9 @@ public class SettingActivity extends AppCompatActivity {
     private void startNotif(int time) {
 
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE,time);
+        c.set(Calendar.HOUR_OF_DAY, time);
+        c.set(Calendar.MINUTE,0);
         c.set(Calendar.SECOND, 0);
-
-        Toast.makeText(this, ""+c.getTime(), Toast.LENGTH_SHORT).show();
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotifAwalReceiver.class);
@@ -229,8 +230,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifAkhir(int time) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE,time);
+        c.set(Calendar.HOUR_OF_DAY,time);
+        c.set(Calendar.MINUTE,0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -249,8 +250,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startAlarm(int hour) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, hour);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -269,13 +270,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifAlarm(int hour) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, hour);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAwalReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -289,13 +290,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startAlarmAkhir(int hour) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, hour);
+        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAkhirService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 2, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 3, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -309,13 +310,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifAlarmAkhir(int hour) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, hour);
+        c.set(Calendar.HOUR_OF_DAY, hour);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmAkhirReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 4, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -329,13 +330,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, minute);
+        c.set(Calendar.HOUR_OF_DAY, hour-1);
+        c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmSahurService.class);
-        PendingIntent pendingIntent = PendingIntent.getService(this, 3, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getService(this, 5, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -349,13 +350,13 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.get(Calendar.HOUR_OF_DAY);
-        c.add(Calendar.MINUTE, minute);
+        c.set(Calendar.HOUR_OF_DAY, hour-1);
+        c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmSahurReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 3, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 6, intent, 0);
 
         if (c.before(Calendar.getInstance())) {
             c.add(Calendar.DATE, 1);
@@ -375,14 +376,6 @@ public class SettingActivity extends AppCompatActivity {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
             alarmManager.cancel(pendingIntent);
 
-//            Intent intent1 = new Intent(this, NotifAkhirReceiver.class);
-//            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 2, intent1, 0);
-//            alarmManager.cancel(pendingIntent1);
-        }else if (no == 0) {
-//            Intent intent = new Intent(this, NotifReceiver.class);
-//            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
-//            alarmManager.cancel(pendingIntent);
-
             Intent intent1 = new Intent(this, NotifAkhirReceiver.class);
             PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 2, intent1, 0);
             alarmManager.cancel(pendingIntent1);
@@ -392,26 +385,25 @@ public class SettingActivity extends AppCompatActivity {
             alarmManager.cancel(pendingIntent);
 
             Intent intent1 = new Intent(this, AlarmAwalReceiver.class);
-            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 1, intent1, 0);
+            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 2, intent1, 0);
             alarmManager.cancel(pendingIntent1);
 
             Intent intent2 = new Intent(this, AlarmAkhirService.class);
-            PendingIntent pendingIntent2 = PendingIntent.getService(this, 2, intent2, 0);
+            PendingIntent pendingIntent2 = PendingIntent.getService(this, 3, intent2, 0);
             alarmManager.cancel(pendingIntent2);
 
             Intent intent3 = new Intent(this, AlarmAkhirReceiver.class);
-            PendingIntent pendingIntent3 = PendingIntent.getBroadcast(this, 2, intent3, 0);
+            PendingIntent pendingIntent3 = PendingIntent.getBroadcast(this, 4, intent3, 0);
             alarmManager.cancel(pendingIntent3);
         } else if (no == 3) {
             Intent intent = new Intent(this, AlarmSahurService.class);
-            PendingIntent pendingIntent = PendingIntent.getService(this, 3, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getService(this, 5, intent, 0);
             alarmManager.cancel(pendingIntent);
 
             Intent intent1 = new Intent(this, AlarmSahurReceiver.class);
-            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 3, intent1, 0);
+            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 6, intent1, 0);
             alarmManager.cancel(pendingIntent1);
         }
-        waktuText.setText("Alarm canceled");
     }
 
     private void notifOn() {
