@@ -23,8 +23,8 @@ import com.ocdxsunnah.oxs.R;
 public class MenuActivity extends AppCompatActivity {
 
 
-    private final static int homeNav = 1;
-    private final static int updateNav = 2;
+    private final static int homeNav = 2;
+    private final static int updateNav = 1;
     private final static int rekomendasiNav = 3;
 
     Button btLogout;
@@ -40,7 +40,7 @@ public class MenuActivity extends AppCompatActivity {
         nabar = findViewById(R.id.navbare);
 
         nabar.add(new MeowBottomNavigation.Model(1, R.drawable.ic_update64));
-        nabar.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_person_24));
+        nabar.add(new MeowBottomNavigation.Model(2, R.drawable.ic_baseline_home_24));
         nabar.add(new MeowBottomNavigation.Model(3, R.drawable.ic_baseline_format_list_bulleted_6));
 
         getSupportFragmentManager().beginTransaction()
