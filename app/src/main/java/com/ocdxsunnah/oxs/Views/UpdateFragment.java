@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -13,6 +14,12 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.ocdxsunnah.oxs.Database.DatabaseInit;
 import com.ocdxsunnah.oxs.R;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -31,7 +38,7 @@ public class UpdateFragment extends Fragment {
     public static final String SHARED_PREFS = "sharedPrefs";
     public static final String TEXT = "text";
     public static final String PROGRESS = "progress";
-
+    DatabaseInit db = new DatabaseInit();
     private String text;
     private int progress;
     Context mBase;
@@ -85,9 +92,25 @@ public class UpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_update, container, false);
-        //dari firebase kajekfjakfja
-        beratSekarang = 80;
-        beratIdeal = 60;
+
+        //dari firebase
+        db.user.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
+                if (firebaseUser != null){
+                    String beratAwal = snapshot.child(firebaseUser.getUid()).child("beratBadan").getValue().toString();
+                    String beratIdeals = snapshot.child(firebaseUser.getUid()).child("beratIdeal").getValue().toString();
+                    beratSekarang = Integer.parseInt(beratAwal);
+                    beratIdeal = Integer.parseInt(beratIdeals);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         inputUpdate = (TextView) root.findViewById(R.id.txtUpdate);
         txtPesentase = (TextView) root.findViewById(R.id.textPersentase);
@@ -105,39 +128,14 @@ public class UpdateFragment extends Fragment {
                 conversi = berat - (beratSekarang-beratIdeal);
                 updateBerat = 100*conversi/berat;
                 txtPesentase.setText(String.valueOf(updateBerat)+"%");
+
                 mProgressBar.setProgress(updateBerat);
 
-                saveData();
             }
         });
 
-        loadData();
-        updateViews();
         return root;
 
     }
-    public void saveData(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        editor.putString(TEXT, String.valueOf(updateBerat));
-        editor.putInt(PROGRESS, updateBerat);
-
-        editor.apply();
-    }
-
-    public SharedPreferences getSharedPreferences(String name, int mode) {
-        return mBase.getSharedPreferences(name, mode);
-    }
-
-    public void loadData(){
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        text = sharedPreferences.getString(TEXT, "0");
-        progress = sharedPreferences.getInt(PROGRESS, 0);
-    }
-
-    public void updateViews(){
-        txtPesentase.setText(text+"%");
-        mProgressBar.setProgress(progress);
-    }
 }
