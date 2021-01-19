@@ -72,6 +72,7 @@ public class SettingActivity extends AppCompatActivity {
         nf = (Switch) findViewById(R.id.notif);
         am = (Switch) findViewById(R.id.alarmMakan);
         as = (Switch) findViewById(R.id.alarmSahur);
+        waktuText = (TextView) findViewById(R.id.textSahur);
 
         saveState();
         getDataFromApi();
@@ -84,9 +85,11 @@ public class SettingActivity extends AppCompatActivity {
 
         stopService();
 
-        Calendar cal = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("E");
-        String waktu = sdf.format(cal.getTime());
+
+        if (mode.equalsIgnoreCase("kolab")) {
+            as.setVisibility(View.INVISIBLE);
+            waktuText.setVisibility(View.INVISIBLE);
+        }
 
 
         nf.setOnClickListener(new View.OnClickListener() {
@@ -104,20 +107,8 @@ public class SettingActivity extends AppCompatActivity {
                     editor2.apply();
                     nf.setChecked(true);
                     notifOn();
-                    if (mode.equalsIgnoreCase("ocd")) {
-                        startNotif(hour);
-                        startNotifAkhir(endhour);
-                    } else if (mode.equalsIgnoreCase("kolab")) {
-                        if (waktu.equalsIgnoreCase("sun")
-                                || waktu.equalsIgnoreCase("sen")
-                                || waktu.equalsIgnoreCase("thu")
-                                || waktu.equalsIgnoreCase("kam")) {
-
-                        } else {
-                            startNotif(hour);
-                            startNotifAkhir(endhour);
-                        }
-                    }
+                    startNotif(hour);
+                    startNotifAkhir(endhour);
                 } else {
                     notifOff();
                     cancelAlarm(1);
@@ -148,26 +139,11 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (am.isChecked()) {
                     cancelAlarm(hour);
+                    startAlarm(hour);
+                    startNotifAlarm(hour);
+                    startAlarmAkhir(endhour);
+                    startNotifAlarmAkhir(endhour);
 
-                    if (mode.equalsIgnoreCase("ocd")){
-                        startAlarm(hour);
-                        startNotifAlarm(hour);
-                        startAlarmAkhir(endhour);
-                        startNotifAlarmAkhir(endhour);
-                    }else if (mode.equalsIgnoreCase("kolab")){
-
-                        if (waktu.equalsIgnoreCase("sun")
-                                || waktu.equalsIgnoreCase("sen")
-                                || waktu.equalsIgnoreCase("thu")
-                                || waktu.equalsIgnoreCase("kam")){
-
-                        }else {
-                            startAlarm(hour);
-                            startNotifAlarm(hour);
-                            startAlarmAkhir(endhour);
-                            startNotifAlarmAkhir(endhour);
-                        }
-                    }
                     SharedPreferences.Editor editor = getSharedPreferences("save1", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
                     editor.apply();
@@ -178,6 +154,8 @@ public class SettingActivity extends AppCompatActivity {
                     editor.putBoolean("value", false);
                     editor.apply();
                     am.setChecked(false);
+                    startNotif(hour);
+                    startNotifAkhir(endhour);
                 }
             }
         });
@@ -186,14 +164,8 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (as.isChecked()) {
-                    cancelAlarm(hour);
-                    if (waktu.equalsIgnoreCase("sun")
-                            || waktu.equalsIgnoreCase("sen")
-                            || waktu.equalsIgnoreCase("thu")
-                            || waktu.equalsIgnoreCase("kam")) {
-                        startSahur(jamSahur, menitSahur);
-                        startNotifSahur(jamSahur, menitSahur);
-                    }
+                    startSahur(jamSahur - 1, menitSahur);
+                    startNotifSahur(jamSahur - 1, menitSahur);
 
                     SharedPreferences.Editor editor = getSharedPreferences("save2", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);
@@ -215,7 +187,7 @@ public class SettingActivity extends AppCompatActivity {
 
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR_OF_DAY, time);
-        c.set(Calendar.MINUTE,0);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -234,8 +206,8 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifAkhir(int time) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY,time);
-        c.set(Calendar.MINUTE,0);
+        c.set(Calendar.HOUR_OF_DAY, time);
+        c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -294,7 +266,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startAlarmAkhir(int hour) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY,hour);
+        c.set(Calendar.HOUR_OF_DAY, hour);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
 
@@ -334,7 +306,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour-1);
+        c.set(Calendar.HOUR_OF_DAY, hour - 1);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
@@ -354,7 +326,7 @@ public class SettingActivity extends AppCompatActivity {
 
     private void startNotifSahur(int hour, int minute) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR_OF_DAY, hour-1);
+        c.set(Calendar.HOUR_OF_DAY, hour - 1);
         c.set(Calendar.MINUTE, minute);
         c.set(Calendar.SECOND, 0);
 
@@ -422,21 +394,19 @@ public class SettingActivity extends AppCompatActivity {
         as.setChecked(false);
     }
 
-    private void stopService(){
+    private void stopService() {
         stopService(new Intent(this, AlarmAwalService.class));
         stopService(new Intent(this, AlarmSahurService.class));
         stopService(new Intent(this, AlarmAkhirService.class));
     }
 
-    private void saveState(){
+    private void saveState() {
         SharedPreferences sharedPreferences = getSharedPreferences("save", MODE_PRIVATE);
         nf.setChecked(sharedPreferences.getBoolean("value", false));
         SharedPreferences sharedPreferences1 = getSharedPreferences("save1", MODE_PRIVATE);
         am.setChecked(sharedPreferences1.getBoolean("value", false));
-        am.setEnabled(sharedPreferences1.getBoolean("value", false));
         SharedPreferences sharedPreferences2 = getSharedPreferences("save2", MODE_PRIVATE);
         as.setChecked(sharedPreferences2.getBoolean("value", false));
-        as.setEnabled(sharedPreferences2.getBoolean("value", false));
 
         SharedPreferences sharedPreferences3 = getSharedPreferences("save3", MODE_PRIVATE);
         am.setEnabled(sharedPreferences3.getBoolean("value", false));
