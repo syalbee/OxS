@@ -59,7 +59,7 @@ public class SettingActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<ImsakModels> call, Throwable t) {
-                        Log.d("MainActivity", t.toString());
+                        Log.d("SettingActivity", t.toString());
                     }
                 });
     }
