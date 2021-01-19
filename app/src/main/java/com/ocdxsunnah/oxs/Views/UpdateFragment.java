@@ -85,7 +85,7 @@ public class UpdateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_update, container, false);
-        //dari firebase
+        //dari firebase kajekfjakfja
         beratSekarang = 80;
         beratIdeal = 60;
 
