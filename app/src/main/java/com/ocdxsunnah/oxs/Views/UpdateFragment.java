@@ -1,5 +1,7 @@
 package com.ocdxsunnah.oxs.Views;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,13 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.ocdxsunnah.oxs.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +23,20 @@ import com.ocdxsunnah.oxs.R;
  * create an instance of this fragment.
  */
 public class UpdateFragment extends Fragment {
+
+    private ProgressBar mProgressBar;
+    private TextView inputUpdate, txtPesentase;
+    private Button btnUpdate;
+
+    public static final String SHARED_PREFS = "sharedPrefs";
+    public static final String TEXT = "text";
+    public static final String PROGRESS = "progress";
+
+    private String text;
+    private int progress;
+    Context mBase;
+
+    int beratSekarang, beratIdeal, berat, updateBerat, conversi;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,6 +50,8 @@ public class UpdateFragment extends Fragment {
     public UpdateFragment() {
         // Required empty public constructor
     }
+
+
 
     /**
      * Use this factory method to create a new instance of
@@ -61,6 +84,60 @@ public class UpdateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_update, container, false);
+        final View root = inflater.inflate(R.layout.fragment_update, container, false);
+        //dari firebase
+        beratSekarang = 80;
+        beratIdeal = 60;
+
+        inputUpdate = (TextView) root.findViewById(R.id.txtUpdate);
+        txtPesentase = (TextView) root.findViewById(R.id.textPersentase);
+        btnUpdate = (Button) root.findViewById(R.id.btnUpdate);
+        mProgressBar = (ProgressBar) root.findViewById(R.id.progressbar);
+
+        mProgressBar.setProgress(0);
+        berat = beratSekarang-beratIdeal;
+
+        btnUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                beratSekarang = Integer.parseInt(inputUpdate.getText().toString());
+                conversi = berat - (beratSekarang-beratIdeal);
+                updateBerat = 100*conversi/berat;
+                txtPesentase.setText(String.valueOf(updateBerat)+"%");
+                mProgressBar.setProgress(updateBerat);
+
+                saveData();
+            }
+        });
+
+        loadData();
+        updateViews();
+        return root;
+
+    }
+    public void saveData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        editor.putString(TEXT, String.valueOf(updateBerat));
+        editor.putInt(PROGRESS, updateBerat);
+
+        editor.apply();
+    }
+
+    public SharedPreferences getSharedPreferences(String name, int mode) {
+        return mBase.getSharedPreferences(name, mode);
+    }
+
+    public void loadData(){
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
+        text = sharedPreferences.getString(TEXT, "0");
+        progress = sharedPreferences.getInt(PROGRESS, 0);
+    }
+
+    public void updateViews(){
+        txtPesentase.setText(text+"%");
+        mProgressBar.setProgress(progress);
     }
 }
