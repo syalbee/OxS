@@ -9,52 +9,65 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_margin="20dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Notifikasi"/>
+            android:text="Notifikasi"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/darker_gray"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
+            android:background="@android:color/background_dark"/>
         <Switch
             android:id="@+id/notif"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nyalakan Notifikasi" />
+            android:text="Nyalakan Notifikasi"
+            android:textSize="21dp"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Alarm"/>
+            android:text="Alarm"
+            android:textSize="23dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:textColor="@android:color/darker_gray"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@android:color/darker_gray" />
-
+            android:background="@android:color/background_dark"/>
         <Switch
             android:id="@+id/alarmMakan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nyalakan Alarm Makan" />
+            android:text="Nyalakan Alarm Makan"
+            android:textSize="21dp"
+            android:layout_marginTop="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Aktif diawal dan diakhir jam makan"
-            android:textSize="11dp"/>
+            android:text="Aktif diawal dan diakhir waktu makan"
+            android:textSize="13dp"/>
 
         <Switch
             android:id="@+id/alarmSahur"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Nyalakan Alarm Sahur" />
+            android:text="Nyalakan Alarm Sahur"
+            android:textSize="21dp"
+            android:layout_marginTop="20dp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aktif 1 jam sebelum imsak"
-            android:textSize="11dp"/>
+            android:textSize="13dp"/>
+
     </LinearLayout>
 
 

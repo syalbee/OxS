@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OxS">
-        <activity android:name=".Views.AwalActivity"></activity>
+        <activity android:name=".Views.AwalActivity" />
         <activity android:name=".Views.MenuActivity" />
         <activity android:name=".Views.SettingActivity" />
         <activity android:name=".Views.WaktuActivity" />
@@ -26,18 +26,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".Receiver.NotifAwalReceiver"/>
-        <receiver android:name=".Receiver.NotifAkhirReceiver"/>
-        <receiver android:name=".Receiver.AlarmAwalReceiver"/>
-        <receiver android:name=".Receiver.AlarmAkhirReceiver"/>
-        <receiver android:name=".Receiver.AlarmSahurReceiver"/>
-        <receiver android:name=".Receiver.Helper.AlarmAwalHelper"/>
-        <receiver android:name=".Receiver.Helper.AlarmAkhirHelper"/>
-        <receiver android:name=".Receiver.Helper.AlarmSahurHelper"/>
 
-        <service android:name=".Service.AlarmAwalService"/>
-        <service android:name=".Service.AlarmAkhirService"/>
-        <service android:name=".Service.AlarmSahurService"/>
+        <receiver android:name=".Receiver.NotifAwalReceiver" />
+        <receiver android:name=".Receiver.NotifAkhirReceiver" />
+        <receiver android:name=".Receiver.AlarmAwalReceiver" />
+        <receiver android:name=".Receiver.AlarmAkhirReceiver" />
+        <receiver android:name=".Receiver.AlarmSahurReceiver" />
+        <receiver android:name=".Receiver.Helper.AlarmAwalHelper" />
+        <receiver android:name=".Receiver.Helper.AlarmAkhirHelper" />
+        <receiver android:name=".Receiver.Helper.AlarmSahurHelper" />
+
+        <service android:name=".Service.AlarmAwalService" />
+        <service android:name=".Service.AlarmAkhirService" />
+        <service android:name=".Service.AlarmSahurService" />
     </application>
 
 </manifest>
