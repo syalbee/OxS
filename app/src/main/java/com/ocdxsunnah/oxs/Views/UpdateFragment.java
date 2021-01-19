@@ -93,7 +93,7 @@ public class UpdateFragment extends Fragment {
         // Inflate the layout for this fragment
         final View root = inflater.inflate(R.layout.fragment_update, container, false);
 
-        //dari firebase
+        //dari firebases
         db.user.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
