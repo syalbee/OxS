@@ -16,6 +16,9 @@ import com.ocdxsunnah.oxs.MainActivity;
 import com.ocdxsunnah.oxs.R;
 import com.ocdxsunnah.oxs.Receiver.Helper.AlarmSahurHelper;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class NotifAlarmSahur extends ContextWrapper {
 
     public static final String channelID1 = "channel1";
@@ -44,22 +47,27 @@ public class NotifAlarmSahur extends ContextWrapper {
     }
 
     public NotificationCompat.Builder getChannelNotification() {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("E");
+        String waktu = sdf.format(cal.getTime());
+        if (waktu.equalsIgnoreCase("mon") || waktu.equalsIgnoreCase("sen") || waktu.equalsIgnoreCase("thu") || waktu.equalsIgnoreCase("kam")) {
+            Intent intent = new Intent(this, MainActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Intent intent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        Intent intent1 = new Intent(this, AlarmSahurHelper.class);
-        PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent intent1 = new Intent(this, AlarmSahurHelper.class);
+            PendingIntent pendingIntent1 = PendingIntent.getBroadcast(this, 0, intent1, PendingIntent.FLAG_UPDATE_CURRENT);
 
 
-        return new NotificationCompat.Builder(getApplicationContext(), channelID1)
-                .setContentTitle("Pengingat")
-                .setContentText("Bangun! Sudah Waktu Sahur!")
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(true)
-                .setColor(Color.GREEN)
-                .addAction(R.drawable.ic_launcher_background, "Berhenti", pendingIntent1);
+            return new NotificationCompat.Builder(getApplicationContext(), channelID1)
+                    .setContentTitle("Pengingat")
+                    .setContentText("Bangun! Sudah Waktu Sahur!")
+                    .setSmallIcon(R.drawable.ic_launcher_background)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH)
+                    .setContentIntent(pendingIntent)
+                    .setAutoCancel(true)
+                    .setColor(Color.GREEN)
+                    .addAction(R.drawable.ic_launcher_background, "Berhenti", pendingIntent1);
+        }
+        return null;
     }
 }

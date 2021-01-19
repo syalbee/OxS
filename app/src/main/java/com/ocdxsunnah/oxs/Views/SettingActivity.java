@@ -164,8 +164,8 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (as.isChecked()) {
-                    startSahur(jamSahur - 1, menitSahur);
-                    startNotifSahur(jamSahur - 1, menitSahur);
+                    startSahur(jamSahur, menitSahur);
+                    startNotifSahur(jamSahur, menitSahur);
 
                     SharedPreferences.Editor editor = getSharedPreferences("save2", MODE_PRIVATE).edit();
                     editor.putBoolean("value", true);

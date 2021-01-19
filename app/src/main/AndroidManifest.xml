@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OxS">
+        <activity android:name=".Views.UpdateActivity"></activity>
         <activity android:name=".Views.AwalActivity" />
         <activity android:name=".Views.MenuActivity" />
         <activity android:name=".Views.SettingActivity" />
