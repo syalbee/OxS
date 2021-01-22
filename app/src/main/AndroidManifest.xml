@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ocdxsunnah.oxs">
 
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+<!--    <uses-feature android:name="android.hardware.type.watch" />-->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -11,7 +13,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OxS">
-        <activity android:name=".Views.UpdateActivity"></activity>
+        <uses-library
+            android:name="com.google.android.wearable"
+            android:required="true" />
+
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <activity
+            android:name=".Views.FoodActivity"
+            android:label="@string/title_activity_food">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Views.WorkoutActivity"
+            android:label="@string/title_activity_workout">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Views.UpdateActivity" />
         <activity android:name=".Views.AwalActivity" />
         <activity android:name=".Views.MenuActivity" />
         <activity android:name=".Views.SettingActivity" />

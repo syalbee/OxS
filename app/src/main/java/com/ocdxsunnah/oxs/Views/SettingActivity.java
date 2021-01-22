@@ -1,7 +1,14 @@
 package com.ocdxsunnah.oxs.Views;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.ocdxsunnah.oxs.Database.DatabaseInit;
 import com.ocdxsunnah.oxs.Models.ImsakModels;
 import com.ocdxsunnah.oxs.R;
 import com.ocdxsunnah.oxs.Receiver.AlarmAkhirReceiver;
@@ -23,6 +30,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,10 +45,15 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SettingActivity extends AppCompatActivity {
+
     Switch nf, am, as;
     TextView waktuText;
+    Button btLogout;
+    ImageButton btBack;
     int jamSahur, menitSahur;
     String mode;
+
+    DatabaseInit db = new DatabaseInit();
 
 
     private void getDataFromApi() {
@@ -73,6 +87,8 @@ public class SettingActivity extends AppCompatActivity {
         am = (Switch) findViewById(R.id.alarmMakan);
         as = (Switch) findViewById(R.id.alarmSahur);
         waktuText = (TextView) findViewById(R.id.textSahur);
+        btLogout = (Button) findViewById(R.id.btLogout);
+        btBack = (ImageButton) findViewById(R.id.btBack);
 
         saveState();
         getDataFromApi();
@@ -181,6 +197,32 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        db.googleSignInClient = GoogleSignIn.getClient(SettingActivity.this, GoogleSignInOptions.DEFAULT_GAMES_SIGN_IN);
+
+        btLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            db.firebaseAuth.signOut();
+                            finish();
+                            Toast.makeText(SettingActivity.this, "Berhasil logout", Toast.LENGTH_SHORT).show();
+                                                   }
+                    }
+                });
+            }
+        });
+
+        btBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent back = new Intent(SettingActivity.this, MenuActivity.class);
+                startActivity(back);
+            }
+        });
     }
 
     private void startNotif(int time) {

@@ -3,21 +3,29 @@ package com.ocdxsunnah.oxs.Views;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.EditText;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.ocdxsunnah.oxs.Database.DatabaseInit;
 import com.ocdxsunnah.oxs.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link RekomenFragment#newInstance} factory method to
+ * Use the {@link PerbaharuiFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RekomenFragment extends Fragment {
+public class PerbaharuiFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,9 +36,9 @@ public class RekomenFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ImageButton btWorkout, btFood;
+    EditText etBerat;
 
-    public RekomenFragment() {
+    public PerbaharuiFragment() {
         // Required empty public constructor
     }
 
@@ -40,11 +48,11 @@ public class RekomenFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment RekomenFragment.
+     * @return A new instance of fragment PerbaharuiFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static RekomenFragment newInstance(String param1, String param2) {
-        RekomenFragment fragment = new RekomenFragment();
+    public static PerbaharuiFragment newInstance(String param1, String param2) {
+        PerbaharuiFragment fragment = new PerbaharuiFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -64,26 +72,16 @@ public class RekomenFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragmen
-        final View root = inflater.inflate(R.layout.fragment_rekomen, container, false);
+        final View root = inflater.inflate(R.layout.fragment_perbaharui, container, false);
 
-        btFood = root.findViewById(R.id.btFood);
-        btWorkout = root.findViewById(R.id.btWorkout);
+        DatabaseInit db = new DatabaseInit();
+        etBerat = root.findViewById(R.id.etBerat);;
 
-        btFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), FoodActivity.class));
-            }
-        });
 
-        btWorkout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getActivity(), WorkoutActivity.class));
-            }
-        });
 
+
+
+        // Inflate the layout for this fragment
         return root;
     }
 }

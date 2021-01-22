@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,14 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.ocdxsunnah.oxs.Database.DatabaseInit;
+import com.ocdxsunnah.oxs.Getdate;
 import com.ocdxsunnah.oxs.R;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,9 +47,12 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     DatabaseInit db = new DatabaseInit();
+
+
     ImageView ivUser;
     ImageButton btSetting;
-    TextView tvNamas;
+    TextView tvNamas, tvWaktu, tvbIdeal, tvBeratku, tvRentang, tvDietke;
+
 
     public HomeFragment() {
         // Required empty public constructor
@@ -79,9 +90,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+        Getdate gd = new Getdate();
+
         ivUser = root.findViewById(R.id.ivUser);
         tvNamas = root.findViewById(R.id.tvNamas);
         btSetting = root.findViewById(R.id.btSetting);
+
+        tvWaktu = root.findViewById(R.id.tvWaktu);
+        tvbIdeal = root.findViewById(R.id.tvbIdeal);
+        tvBeratku = root.findViewById(R.id.tvberatKu);
+        tvRentang = root.findViewById(R.id.tvrentangWaktu);
+        tvDietke = root.findViewById(R.id.tvHarike);
+
+        tvNamas.setText("User");
+        tvWaktu.setText(gd.getDateNow("dd MMMM yy"));
 
         btSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,16 +112,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        tvNamas.setText("nama");
-
         db.user.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
                 FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
-                if(firebaseUser != null){
-
+                if (firebaseUser != null ) {
                     Glide.with(HomeFragment.this)
                             .load(firebaseUser.getPhotoUrl())
                             .into(ivUser);
@@ -108,6 +125,12 @@ public class HomeFragment extends Fragment {
                     String[] value = nama.split(" ");
                     String name = value[0];
                     tvNamas.setText("Hi " + name);
+
+                    tvbIdeal.setText(snapshot.child(firebaseUser.getUid()).child("beratIdeal").getValue().toString());
+                    tvBeratku.setText(snapshot.child(firebaseUser.getUid()).child("beratBadan").getValue().toString());
+                    tvRentang.setText(snapshot.child(firebaseUser.getUid()).child("lama").getValue().toString());
+                    tanggals(snapshot.child(firebaseUser.getUid()).child("tanggalAktif").getValue().toString());
+
                 }
             }
 
@@ -116,9 +139,30 @@ public class HomeFragment extends Fragment {
 
             }
         });
-        // Inflate the layout for this fragment
+
         return root;
-//        return inflater.inflate(R.layout.fragment_home, container, false);
+    }
+
+    private void tanggals(String waktos){
+        Getdate dg = new Getdate();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        String tgl = dg.getDateNow("dd/MM/yyyy");
+
+        try{
+            //Konversi dari string ke tanggal
+            Date TanggalPinjam =df.parse(waktos);
+            Date TanggalKembali = df.parse(tgl);
+
+            //Tgl di konversi ke milidetik
+            long Hari1 = TanggalPinjam.getTime();
+            long Hari2 = TanggalKembali.getTime();
+            long diff = Hari2 - Hari1;
+            long Lama = diff / (24 * 60 * 60 * 1000);
+            tvDietke.setText(Long.toString(Lama));
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 }

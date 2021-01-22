@@ -69,32 +69,29 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser != null) {
-//            progressBar.setIndeterminate(true);
             ProgressDialog.show(LoginActivity.this, "Conecting", "Please wait");
-            db.user.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if (snapshot.hasChild("status")) {
-//                        progressBar.setIndeterminate(false);
-                        finish();
-                        startActivity(new Intent(LoginActivity.this, MenuActivity.class));
-                    }
+            startActivity(new Intent(LoginActivity.this, MenuActivity.class));
 
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
+//            db.user.child(firebaseUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                    if (snapshot.hasChild("status")) {
+//                        startActivity(new Intent(LoginActivity.this, SettingActivity.class));
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                }
+//            });
 
         } else {
-
             int yus = getIntent().getIntExtra("statuse",0);
             if(yus != 1){
                 startActivity(new Intent(LoginActivity.this, AwalActivity.class));
             }
-
         }
 
         btBack.setOnClickListener(new View.OnClickListener() {

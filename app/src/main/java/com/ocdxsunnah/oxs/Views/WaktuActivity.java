@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.ocdxsunnah.oxs.Database.DatabaseInit;
+import com.ocdxsunnah.oxs.Getdate;
 import com.ocdxsunnah.oxs.R;
 
 public class WaktuActivity extends AppCompatActivity {
@@ -23,6 +24,7 @@ public class WaktuActivity extends AppCompatActivity {
     private int jam = 0;
     private String uID;
     DatabaseInit db = new DatabaseInit();
+    Getdate gd = new Getdate();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class WaktuActivity extends AppCompatActivity {
         btBack = findViewById(R.id.btBack);
 
 
+
         FirebaseUser firebaseUser = db.firebaseAuth.getCurrentUser();
         uID = firebaseUser.getUid();
 
@@ -47,7 +50,7 @@ public class WaktuActivity extends AppCompatActivity {
                 if(jam == 0){
                     Toast.makeText(WaktuActivity.this, "pilih salah satu", Toast.LENGTH_SHORT).show();
                 } else {
-                    db.user.child(uID).child("status").setValue(true);
+                    db.user.child(uID).child("tanggalAktif").setValue(gd.getDateNow("dd/MM/yyyy"));
                     Intent next = new Intent(WaktuActivity.this, MenuActivity.class);
                     startActivity(next);
                     finish();
